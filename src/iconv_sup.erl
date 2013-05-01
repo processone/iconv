@@ -50,7 +50,9 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
-    {ok, {{one_for_one, 10, 1}, []}}.
+    Iconv = {iconv, {iconv, start_link, []},
+             permanent, brutal_kill, worker, [iconv]},
+    {ok, {{one_for_one, 10, 1}, [Iconv]}}.
 
 %%%===================================================================
 %%% Internal functions
