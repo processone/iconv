@@ -28,58 +28,36 @@
 
 -author('alexey@process-one.net').
 
--behaviour(gen_server).
+-export([load_nif/0, load_nif/1, convert/3]).
 
--export([start_link/0, convert/3]).
+-ifdef(TEST).
+-include_lib("eunit/include/eunit.hrl").
+-endif.
 
-%% Internal exports, call-back functions.
--export([init/1, handle_call/3, handle_cast/2,
-	 handle_info/2, code_change/3, terminate/2]).
+%%%===================================================================
+%%% API functions
+%%%===================================================================
+load_nif() ->
+    load_nif(get_so_path()).
 
-start_link() ->
-    gen_server:start_link({local, ?MODULE}, ?MODULE, [],
-			  []).
-
-init([]) ->
-    case load_driver() of
+load_nif(LibDir) ->
+    SOPath = filename:join(LibDir, "iconv"),
+    case catch erlang:load_nif(SOPath, 0) of
         ok ->
-            Port = open_port({spawn, "iconv_erl"}, []),
-            ets:new(iconv_table, [set, public, named_table]),
-            ets:insert(iconv_table, {port, Port}),
-            {ok, Port};
-        {error, Reason} ->
-            {stop, Reason}
+            ok;
+        Err ->
+            error_logger:warning_msg("unable to load iconv NIF: ~p~n", [Err]),
+            Err
     end.
 
-%%% --------------------------------------------------------
-%%% The call-back functions.
-%%% --------------------------------------------------------
+-spec convert(iodata(), iodata(), iodata()) -> binary().
 
-handle_call(_, _, State) -> {noreply, State}.
+convert(_From, _To, _String) ->
+    erlang:nif_error(nif_not_loaded).
 
-handle_cast(_, State) -> {noreply, State}.
-
-handle_info({'EXIT', Port, Reason}, Port) ->
-    {stop, {port_died, Reason}, Port};
-handle_info({'EXIT', _Pid, _Reason}, Port) ->
-    {noreply, Port};
-handle_info(_, State) -> {noreply, State}.
-
-code_change(_OldVsn, State, _Extra) -> {ok, State}.
-
-terminate(_Reason, Port) ->
-    catch port_close(Port),
-    ok.
-
--spec convert(binary(), binary(), binary()) -> binary().
-
-convert(From, To, String) ->
-    [{port, Port} | _] = ets:lookup(iconv_table, port),
-    Bin = term_to_binary({binary_to_list(From),
-                          binary_to_list(To),
-                          binary_to_list(String)}),
-    port_control(Port, 1, Bin).
-
+%%%===================================================================
+%%% Internal functions
+%%%===================================================================
 get_so_path() ->
     case os:getenv("EJABBERD_SO_PATH") of
         false ->
@@ -93,14 +71,29 @@ get_so_path() ->
             Path
     end.
 
-load_driver() ->
-    case erl_ddll:load_driver(get_so_path(), iconv_erl) of
-        ok ->
-            ok;
-        {error, already_loaded} ->
-            ok;
-        {error, ErrorDesc} = Err ->
-            error_logger:error_msg("failed to load iconv driver: ~s~n",
-                                   [erl_ddll:format_error(ErrorDesc)]),
-            Err
-    end.
+%%%===================================================================
+%%% Unit tests
+%%%===================================================================
+-ifdef(TEST).
+
+load_nif_test() ->
+    ?assertEqual(ok, load_nif(filename:join(["..", "priv", "lib"]))).
+
+utf8_to_koi8r_test() ->
+    ?assertEqual(
+       <<212,197,211,212>>,
+       iconv:convert("utf-8", "koi8-r", <<209,130,208,181,209,129,209,130>>)).
+
+koi8r_to_cp1251_test() ->
+    ?assertEqual(
+       <<242,229,241,242>>,
+       iconv:convert("koi8-r", "cp1251", <<212,197,211,212>>)).
+
+wrong_encoding_test() ->
+    ?assertEqual(
+       <<1,2,3,4,5>>,
+       iconv:convert("wrong_encoding_from",
+                     "wrong_encoding_to",
+                     <<1,2,3,4,5>>)).
+
+-endif.

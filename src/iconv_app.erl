@@ -34,9 +34,14 @@
 %% @end
 %%--------------------------------------------------------------------
 start(_StartType, _StartArgs) ->
-    case iconv_sup:start_link() of
-        {ok, Pid} ->
-            {ok, Pid};
+    case iconv:load_nif() of
+        ok ->
+            case iconv_sup:start_link() of
+                {ok, Pid} ->
+                    {ok, Pid};
+                Error ->
+                    Error
+            end;
         Error ->
             Error
     end.
