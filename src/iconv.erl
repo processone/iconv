@@ -59,17 +59,9 @@ convert(_From, _To, _String) ->
 %%% Internal functions
 %%%===================================================================
 get_so_path() ->
-    case os:getenv("EJABBERD_SO_PATH") of
-        false ->
-            case code:priv_dir(p1_iconv) of
-                {error, _} ->
-                    filename:join(["priv", "lib"]);
-                Path ->
-                    filename:join([Path, "lib"])
-            end;
-        Path ->
-            Path
-    end.
+    EbinDir = filename:dirname(code:which(?MODULE)),
+    AppDir = filename:dirname(EbinDir),
+    filename:join([AppDir, "priv", "lib"]).
 
 %%%===================================================================
 %%% Unit tests
