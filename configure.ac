@@ -28,10 +28,8 @@ AC_ERLANG_NEED_ERLC
 # AC_ERLANG_SUBST_ROOT_DIR
 # AC_ERLANG_SUBST_LIB_DIR
 
-AC_CHECK_HEADER(iconv.h, [ICONV_HEADER=yes], [], [])
+AM_ICONV
 
-if test "x$ICONV_HEADER" = "x"; then
-   AC_MSG_ERROR([iconv header file "iconv.h" was not found])
-fi
+AC_CONFIG_FILES([rebar.config])
 
 AC_OUTPUT
