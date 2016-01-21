@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_PACKAGE_VERSION(0.1.0)
-AC_INIT(iconv, 0.1.0, [], [])
+AC_PACKAGE_VERSION(1.0.0)
+AC_INIT(iconv, 1.0.0, [], [])
 
 # Checks for programs.
 AC_PROG_CC
@@ -30,6 +30,16 @@ AC_ERLANG_NEED_ERLC
 
 AM_ICONV
 
-AC_CONFIG_FILES([rebar.config])
+AC_ARG_ENABLE(gcov,
+[AC_HELP_STRING([--enable-gcov], [compile with gcov enabled (default: no)])],
+[case "${enableval}" in
+  yes) gcov=true ;;
+  no)  gcov=false ;;
+  *) AC_MSG_ERROR(bad value ${enableval} for --enable-gcov) ;;
+esac],[gcov=false])
+
+AC_SUBST(gcov)
+
+AC_CONFIG_FILES([vars.config])
 
 AC_OUTPUT
