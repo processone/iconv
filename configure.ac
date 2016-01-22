@@ -5,6 +5,8 @@ AC_PREREQ(2.53)
 AC_PACKAGE_VERSION(1.0.0)
 AC_INIT(iconv, 1.0.0, [], [])
 
+AM_INIT_AUTOMAKE
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
