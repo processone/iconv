@@ -1,6 +1,6 @@
 # iconv
 
-[![Build Status](https://travis-ci.org/processone/iconv.svg?branch=master)](https://travis-ci.org/processone/iconv) [![Coverage Status](https://coveralls.io/repos/processone/iconv/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/iconv?branch=master) [![Hex version](https://img.shields.io/hexpm/v/iconv.svg "Hex version")](https://hex.pm/packages/iconv)
+[![Build Status](https://travis-ci.org/processone/iconv.svg?branch=master)](https://travis-ci.org/processone/iconv) [![Coverage Status](https://coveralls.io/repos/processone/iconv/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/iconv?branch=master) [![Hex version](https://img.shields.io/hexpm/v/iconv.svg "Hex version")](https://hex.pm/packages/)
 
 Fast encoding conversion library for Erlang / Elixir
 
@@ -50,5 +50,4 @@ Eshell V6.3  (abort with ^G)
 You can run eunit test with the command:
 
     $ rebar eunit
-
 
