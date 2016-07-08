@@ -1,3 +1,8 @@
+# Version 1.0.1
+
+* Use nif loading code from p1_utils (Paweł Chmielowski)
+* Fix compilation on rebar3 (Paweł Chmielowski)
+
 # Version 1.0.0
 
 * Application is now called iconv for consistency (Mickaël Rémond)
