@@ -35,30 +35,23 @@
 %%% API functions
 %%%===================================================================
 load_nif() ->
-    load_nif(get_so_path()).
-
-load_nif(LibDir) ->
-    SOPath = filename:join(LibDir, "iconv"),
-    case catch erlang:load_nif(SOPath, 0) of
+    NifFile = p1_nif_utils:get_so_path(?MODULE, [iconv], "iconv"),
+    case erlang:load_nif(NifFile, 0) of
         ok ->
             ok;
-        Err ->
-            error_logger:warning_msg("unable to load iconv NIF: ~p~n", [Err]),
-            Err
+        {error, {Reason, Txt}} ->
+            error_logger:error_msg("failed to load NIF ~s: ~s",
+                                   [NifFile, Txt]),
+            {error, Reason}
     end.
+
+load_nif(_LibDir) ->
+    load_nif().
 
 -spec convert(iodata(), iodata(), iodata()) -> binary().
 
 convert(_From, _To, _String) ->
     erlang:nif_error(nif_not_loaded).
-
-%%%===================================================================
-%%% Internal functions
-%%%===================================================================
-get_so_path() ->
-    EbinDir = filename:dirname(code:which(?MODULE)),
-    AppDir = filename:dirname(EbinDir),
-    filename:join([AppDir, "priv", "lib"]).
 
 %%%===================================================================
 %%% Unit tests
