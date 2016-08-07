@@ -1,3 +1,7 @@
+# Version 1.0.2
+
+* Update p1_utils (Mickaël Rémond)
+
 # Version 1.0.1
 
 * Use nif loading code from p1_utils (Paweł Chmielowski)
