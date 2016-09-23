@@ -25,6 +25,8 @@
 
 -author('alexey@process-one.net').
 
+-compile(no_native).
+
 -export([load_nif/0, load_nif/1, convert/3]).
 
 -ifdef(TEST).
