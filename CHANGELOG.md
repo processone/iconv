@@ -1,3 +1,8 @@
+# Version 1.0.3
+
+* Use p1_utils 1.0.6 (Christophe Romain)
+* Make sure iconv isn't compiled to native code (Holger Weiss)
+
 # Version 1.0.2
 
 * Update p1_utils (Mickaël Rémond)
