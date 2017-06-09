@@ -1,3 +1,7 @@
+# Version 1.0.5
+
+* depends on p1_utils-1.0.9
+
 # Version 1.0.4
 
 * Update rebar.config.script (Paweł Chmielowski)
