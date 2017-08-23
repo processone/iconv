@@ -66,7 +66,7 @@ static int do_convert(ErlNifEnv* env, char *from, char *to,
 		outleft -= 2;
 	    }
 	    stmp++;
-	    inleft--;
+	    if (inleft > 0) inleft--;
 	}
     }
 
