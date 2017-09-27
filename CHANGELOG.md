@@ -1,3 +1,7 @@
+# Version 1.0.6
+
+* Fix possible overflow of inleft
+
 # Version 1.0.5
 
 * depends on p1_utils-1.0.9
