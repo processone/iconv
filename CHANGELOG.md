@@ -1,3 +1,7 @@
+# Version 1.0.7
+
+* Fix compilation with rebar3
+
 # Version 1.0.6
 
 * Updating p1_utils to version 1.0.10.
