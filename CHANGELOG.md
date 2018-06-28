@@ -1,3 +1,7 @@
+# Version 1.0.8
+
+* Updating p1_utils to version 1.0.12.
+
 # Version 1.0.7
 
 * Updating p1_utils to version 1.0.11.
