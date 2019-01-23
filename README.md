@@ -60,6 +60,19 @@ You can use `iconv` with Elixir `mix` by adding the dependency as follows:
   end
 ```
 
+```
+$ mix deps.get
+...
+$ mix deps.compile
+...
+$ iex -S mix
+Erlang/OTP 21 [erts-10.2.1] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe] [dtrace]
+
+Interactive Elixir (1.7.4) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> :iconv.convert("utf-8", "iso8859-15", "Hello")
+"Hello"
+```
+
 ## Development
 
 ### Test
