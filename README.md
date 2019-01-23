@@ -32,13 +32,20 @@ library:
 You can start iconv with the following command:
 
 ```shell
-$ erl -pa ebin
-Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]
+$ erl -pa ebin -pa deps/*/ebin
+Erlang/OTP 21 [erts-10.2.1] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe] [dtrace]
 
-Eshell V6.3  (abort with ^G)
-
-% Start the application:
+Eshell V10.2.1  (abort with ^G)
 1> application:start(iconv).
+ok
+2> FromEncoding = <<"utf-8">>. 
+<<"utf-8">>
+3> ToEncoding = <<"iso8859-15">>.
+<<"iso8859-15">>
+4> Text = <<"Hello">>.
+<<"Hello">>
+5> iconv:convert(FromEncoding, ToEncoding, Text).            
+<<"Hello">>
 ```
 
 ## Development
