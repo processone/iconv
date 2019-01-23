@@ -48,6 +48,18 @@ ok
 <<"Hello">>
 ```
 
+## Elixir
+
+You can use `iconv` with Elixir `mix` by adding the dependency as follows:
+
+```
+  defp deps do
+    [
+      {:iconv, "~> 1.0.10"},
+    ]
+  end
+```
+
 ## Development
 
 ### Test
