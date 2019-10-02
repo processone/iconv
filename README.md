@@ -56,6 +56,7 @@ You can use `iconv` with Elixir `mix` by adding the dependency as follows:
   defp deps do
     [
       {:iconv, "~> 1.0.10"},
+      {:p1_utils, "~> 1.0.10"}
     ]
   end
 ```
