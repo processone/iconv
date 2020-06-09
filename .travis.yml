@@ -1,6 +1,8 @@
-sudo: false
-
 language: erlang
+
+os: linux
+
+dist: xenial
 
 before_install:
   - pip install --user cpp-coveralls coveralls-merge
@@ -19,3 +21,6 @@ otp_release:
   - 17.1
   - 17.5
   - 18.1
+  - 19.3
+  - 22.3
+  - 23.0
