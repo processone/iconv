@@ -1,3 +1,11 @@
+# Version 1.0.11
+
+* Updating p1_utils to version 1.0.19.
+* Fix to compile with Rebar2 and Erlang 23, added to Travis and Coveralls
+* Document usage with Elixir mix
+* Add more explicit usage example
+* Add CoC and contribution guide
+
 # Version 1.0.10
 
 * Updating p1_utils to version 1.0.13.
