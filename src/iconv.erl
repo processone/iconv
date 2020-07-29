@@ -37,7 +37,7 @@
 %%% API functions
 %%%===================================================================
 load_nif() ->
-    NifFile = p1_nif_utils:get_so_path(?MODULE, [iconv], "iconv"),
+    NifFile = get_so_path(?MODULE, [iconv], "iconv"),
     case erlang:load_nif(NifFile, 0) of
         ok ->
             ok;
@@ -54,6 +54,54 @@ load_nif(_LibDir) ->
 
 convert(_From, _To, _String) ->
     erlang:nif_error(nif_not_loaded).
+
+get_so_path(ModuleName, AppNames, SoName) ->
+    PrivDir = first_match(fun(App) ->
+                                  case code:priv_dir(App) of
+                                      {error, _} -> none;
+                                      V -> V
+                                  end
+                          end, AppNames),
+    case PrivDir of
+        none ->
+            Ext = case os:type() of
+                      {win32, _} -> ".dll";
+                      _ -> ".so"
+                  end,
+            SoFName = filename:join(["priv", "lib", SoName ++ Ext]),
+            LPath = first_match(fun(Path) ->
+                                        P = case filename:basename(Path) of
+                                                "ebin" -> filename:dirname(Path);
+                                                _ -> Path
+                                            end,
+                                        case filelib:is_file(filename:join([P, SoFName])) of
+                                            true ->
+                                                filename:join([P, "priv", "lib", SoName]);
+                                    _ ->
+                                                none
+                                        end
+                                end, code:get_path()),
+            case LPath of
+                none ->
+                    EbinDir = filename:dirname(code:which(ModuleName)),
+                    AppDir = filename:dirname(EbinDir),
+                    filename:join([AppDir, "priv", "lib", SoName]);
+                Val ->
+                    Val
+            end;
+        V ->
+            filename:join([V, "lib", SoName])
+    end.
+
+first_match(_Fun, []) ->
+    none;
+first_match(Fun, [H|T]) ->
+    case Fun(H) of
+        none ->
+            first_match(Fun, T);
+        V  ->
+            V
+    end.
 
 %%%===================================================================
 %%% Unit tests
