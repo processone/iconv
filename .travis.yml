@@ -28,3 +28,15 @@ otp_release:
   - 19.3
   - 22.3
   - 23.0
+# Disable otp_release 17.1, 17.5, 18.1, 19.3 as these releases are not supported on Ubuntu16.04 for arch: ppc64le
+jobs: 
+ exclude:
+  - arch: ppc64le
+    otp_release: 17.1
+  - arch: ppc64le
+    otp_release: 17.5
+  - arch: ppc64le
+    otp_release: 18.1
+  - arch: ppc64le
+    otp_release: 19.3
+    
