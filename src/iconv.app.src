@@ -22,7 +22,7 @@
 %%%----------------------------------------------------------------------
 {application, iconv,
  [{description,  "Fast encoding conversion library for Erlang / Elixir"},
-  {vsn,          "1.0.11"},
+  {vsn,          "1.0.12"},
   {modules,      []},
   {registered,   []},
   {applications, [kernel, stdlib]},
