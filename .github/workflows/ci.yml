@@ -29,7 +29,18 @@ jobs:
     - run: rebar3 compile
     - run: rebar3 xref
     - run: rebar3 dialyzer
-    - run: rebar3 eunit -v
+
+    - name: Run tests to obtain Erlang coverage
+      run: |
+        mv test/unload_test.erl .
+        rebar3 eunit -v
+        mv _build/test/cover/eunit.coverdata .
+
+    - name: Run tests to obtain C coverage
+      run: |
+        mv unload_test.erl test/
+        rebar3 eunit -v
+        mv eunit.coverdata _build/test/cover/
 
     - name: Send to Coveralls
       if: matrix.otp == 24
