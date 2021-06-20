@@ -55,6 +55,7 @@ load_nif(_LibDir) ->
 convert(_From, _To, _String) ->
     erlang:nif_error(nif_not_loaded).
 
+%% Code copied from p1_utils/src/p1_nif_utils.erl
 get_so_path(ModuleName, AppNames, SoName) ->
     PrivDir = first_match(fun(App) ->
                                   case code:priv_dir(App) of
