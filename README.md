@@ -1,6 +1,8 @@
 # iconv
 
-[![Build Status](https://travis-ci.org/processone/iconv.svg?branch=master)](https://travis-ci.org/processone/iconv) [![Coverage Status](https://coveralls.io/repos/processone/iconv/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/iconv?branch=master) [![Hex version](https://img.shields.io/hexpm/v/iconv.svg "Hex version")](https://hex.pm/packages/)
+[![CI](https://github.com/processone/iconv/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/processone/iconv/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/processone/iconv/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/iconv?branch=master)
+[![Hex version](https://img.shields.io/hexpm/v/iconv.svg "Hex version")](https://hex.pm/packages/iconv)
 
 Fast encoding conversion library for Erlang / Elixir
 
