@@ -1,3 +1,15 @@
+# Version 1.0.13
+
+* Remove p1_utils dependency
+* Parametrize the rebar binary (processone/fast_tls#51)
+* Add Github Action to release in hex.pm when tagging
+* Switch from Travis to Github Actions
+
+# Version 1.0.12
+
+* Update p1_utils dependency
+* Changing Travis.yml
+
 # Version 1.0.11
 
 * Updating p1_utils to version 1.0.19.
