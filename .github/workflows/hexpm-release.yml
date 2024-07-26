@@ -7,10 +7,10 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup rebar3 hex
         run: |
@@ -41,9 +41,3 @@ jobs:
         run: DEBUG=1 rebar3 hex publish --repo hexpm --yes
         env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: rebar-files
-          path: rebar*
-          if-no-files-found: ignore
